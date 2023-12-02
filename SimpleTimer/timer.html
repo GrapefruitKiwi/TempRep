@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>精确计时器</title>
+</head>
+<body>
+
+  <h1>精确计时器</h1>
+  <p id="timer">00:00:00</p>
+  <button onclick="startTimer()">开始</button>
+  <button onclick="pauseTimer()">暂停</button>
+  <button onclick="resetTimer()">重置</button>
+
+  <script>
+    let startTime;
+    let timerInterval;
+    let elapsedTime = 0;
+    let isTimerRunning = false;
+
+    function startTimer() {
+      if (!isTimerRunning) {
+        isTimerRunning = true;
+        startTime = new Date().getTime() - elapsedTime;
+        timerInterval = setInterval(updateTimer, 10); // 更新频率为每10毫秒
+      }
+    }
+
+    function pauseTimer() {
+      if (isTimerRunning) {
+        isTimerRunning = false;
+        clearInterval(timerInterval);
+      }
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      isTimerRunning = false;
+      elapsedTime = 0;
+      document.getElementById('timer').innerText = '00:00:00';
+    }
+
+    function updateTimer() {
+      const currentTime = new Date().getTime();
+      elapsedTime = currentTime - startTime;
+      const formattedTime = formatTime(elapsedTime);
+      document.getElementById('timer').innerText = formattedTime;
+    }
+
+    function formatTime(time) {
+      let hours = Math.floor(time / 3600000);
+      let minutes = Math.floor((time % 3600000) / 60000);
+      let seconds = Math.floor((time % 60000) / 1000);
+      let milliseconds = Math.floor(time % 1000);
+
+      hours = pad(hours);
+      minutes = pad(minutes);
+      seconds = pad(seconds);
+      milliseconds = pad(milliseconds, 3);
+
+      return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+    }
+
+    function pad(val, length = 2) {
+      let valString = val.toString();
+      while (valString.length < length) {
+        valString = '0' + valString;
+      }
+      return valString;
+    }
+  </script>
+
+</body>
+</html>
