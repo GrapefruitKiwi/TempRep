@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>等待三秒钟</title>
+</head>
+<body>
+
+  <h1>等待三秒钟</h1>
+  <p id="message">等待三秒后会显示这条消息。</p>
+
+  <script>
+    setTimeout(function() {
+      // 在这里放置你想要在三秒后执行的代码
+      document.getElementById('message').innerText = '三秒已经过去了！';
+    }, 3000); // 3000毫秒 = 3秒
+  </script>
+
+</body>
+</html>
